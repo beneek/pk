@@ -51,7 +51,7 @@ double funkcja2_pic(double x){
 }
 ///////////////////////////////////////////////////
 double funkcja2poch(double x){
-	return (1 - 1.0/(cos(x)*cos(x)) );
+	return (1 + 1.0/(cos(x)*cos(x)) );
 }
 ///////////////////////////////////////////////////
 double MetodaPicarda(double (*f)(double),double x0)
