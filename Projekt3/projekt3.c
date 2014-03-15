@@ -12,8 +12,8 @@ double funkcja1poch(double x);
 double funkcja2poch(double x);
 double MetodaPicarda(double (*f)(double),double);
 double MetodaNewtona(double (*f)(double),double (*fpoch)(double), double x0);
-double RegulaFalsi(double (*f));
-double MetodaSiecznych(double(*f),double);
+double MetodaBisekcji(double(*f)(double),double xp, double xk);
+double MetodaSiecznych(double(*f)(double),double, double);
 
 int main(){
 printf("[Picard,sin]:%0.25lf\n\n",MetodaPicarda(&funkcja1_pic,5));
@@ -25,6 +25,8 @@ printf("[Newton,tan]:%0.25lf\n\n",MetodaNewtona(&funkcja2,&funkcja2poch,1));
 printf("[Bisekcja,sin]:%0.25lf\n\n",MetodaBisekcji(&funkcja1,-5,5));
 printf("[Bisekcja,tan]:%0.25lf\n\n",MetodaBisekcji(&funkcja2,-5,5));
 
+printf("[MetSiecznych,sin]:%0.25lf\n\n",MetodaSiecznych(&funkcja1,1,5));
+printf("[MetSiecznych,tan]:%0.25lf\n\n",MetodaSiecznych(&funkcja2,-5,5));
 
 
 return 0;
@@ -34,7 +36,7 @@ double funkcja1_pic(double x){
         return (1 - sin(x/2.0) );
 }
 double funkcja1poch(double x){
-        return (-cos(x/2.0) / 2.0);
+        return (cos(x/2.0)/2.0 + 1);
 }
 ////////////////////////////////////////////////////
 double funkcja1(double x){
@@ -49,7 +51,7 @@ double funkcja2_pic(double x){
 }
 ///////////////////////////////////////////////////
 double funkcja2poch(double x){
-	return (-1.0 / (cos(x)*cos(x)));
+	return (1 - 1.0/(cos(x)*cos(x)) );
 }
 ///////////////////////////////////////////////////
 double MetodaPicarda(double (*f)(double),double x0)
@@ -79,7 +81,6 @@ double MetodaNewtona(double (*f)(double),double (*fpoch)(double), double x0)
 	 printf("%d:[Newton]:%0.25lf\n",i,xn);
 	}while(i < MAX_ITER && fabs(xn - x0) > EPS && fabs(f1) >= EPS);
 	 return xn;
-
 }
 //////////////////////////////////////////////////////
 double MetodaBisekcji(double(*f)(double),double xp, double xk)
@@ -103,6 +104,22 @@ double MetodaBisekcji(double(*f)(double),double xp, double xk)
 		printf("Zly przedzial lub funkcja!\n");
 		return 0;
 	}
+	return xn;
+}
+///////////////////////////////////////////////////////////
+double MetodaSiecznych(double (*f)(double), double x1, double x2){
+	int i = 0;
+	double f1 = f(x1), f2 = f(x2), xn, f0;
+	do{
+		xn = x1 - f1 * (x1 - x2)/(f1 -f2);
+		f0 = f(xn);
+		x2 = x1;
+		f2 = f1;
+		x1 = xn;
+		f1 = f0;
+		printf("%d:[MetSiecznych]:%.25lf\n",i,xn); 
+		i++;
+	}while(i < MAX_ITER && (fabs(x1 - x2) > EPS) && (fabs(f1 - f2)) > EPS);
 	return xn;
 }
 
