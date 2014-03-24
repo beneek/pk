@@ -18,26 +18,28 @@ public class Projekt2 {
        
         // otwarcie pliku
         BufferedReader bufferedReader = null;
-        String plaintext = null;
+        String plainText = null;
         try {
-            bufferedReader = new BufferedReader(new FileReader("dane.txt"));
+            bufferedReader = new BufferedReader(new FileReader("tekst_do_szyfrowania.txt"));
         }
         catch (FileNotFoundException fileNotFound) {
+            //Jezeli pliku nie znaleziono, koniec programu
             System.err.println("Pliku nie znaleziono!");
             return;
         }
        
         // czytanie i zamykanie pliku
         try {
-            StringBuilder sb = new StringBuilder();
+            //Uzywanie StringBuildera poniewaz jest bardziej optymalny w uzyciu w porownaiu z dzialaniem na Stringach
+            StringBuilder stringBuilder = new StringBuilder();
             String line = bufferedReader.readLine();
  
             while (line != null) {
-                sb.append(line);
-                sb.append(System.lineSeparator());
+                stringBuilder.append(line);
+                stringBuilder.append(System.lineSeparator());
                 line = bufferedReader.readLine();
             }
-            plaintext = sb.toString();
+            plainText = stringBuilder.toString();
         } finally {           
                 bufferedReader.close();    
         }   
@@ -47,14 +49,14 @@ public class Projekt2 {
         // wypisz na ekran klucze oraz tekst
         System.out.println(RSA.getPublickey());
         System.out.println(RSA.getPrivatekey());
-        System.out.println(plaintext);
+        System.out.println(plainText);
        
         // szyfrowanie
-        String ciphertext = RSA.encrypt(plaintext);
-        System.out.println(ciphertext);
+        String cipherText = RSA.encrypt(plainText);
+        System.out.println(cipherText);
        
-        // deszyfruj
-        String plaintext1 = RSA.decrypt(ciphertext);
+        // deszyfrowanie
+        String plaintext1 = RSA.decrypt(cipherText);
         System.out.println(plaintext1);
        
     }
