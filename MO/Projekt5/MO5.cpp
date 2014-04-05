@@ -47,7 +47,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	cout<<"Rozwiazania:"<<endl;
 	for(int i = 0 ; i < DIM ; i++){
-		cout<<i<<": "<<x
+		cout<<i<<": \t"<<x
 			[i]<<endl;
 	}
 
@@ -137,7 +137,7 @@ void find_el(double **matrix, int *vect, int n, int pi, int pj){
     for(; i < n ; i++){
 		//jezeli element macierzy jest wiekszy od max, zamien wiersze
 		if(fabs(matrix[vect[i]][pj]) > max){
-			max = matrix[vect[i]][pj];
+			max = fabs(matrix[vect[i]][pj]);
 			position = i;
 		}
 	}
