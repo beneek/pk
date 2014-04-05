@@ -51,8 +51,6 @@ int _tmain(int argc, _TCHAR* argv[])
 			[i]<<endl;
 	}
 
-
-   
 	system("PAUSE");
 	return 0;
 }
