@@ -147,7 +147,7 @@ void find_el(double **matrix, int *vect, int n, int pi, int pj){
 }
 void solve_eq(double **matrix, int n, double *vect, double *x, double *y, int *index){
 	double sum = 0;
-	y[0] = vect[index[0]] / matrix[index[0]][0];
+	y[0] = vect[index[0]];
 	for(int i = 1 ; i < n ; i++ , sum = 0){
 		for(int j = 0 ; j <  i ; j++){
 			sum += matrix[index[i]][j] * y[j];
